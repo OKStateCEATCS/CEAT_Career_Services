@@ -33,8 +33,12 @@ def grab_excel():
     WebDriverWait(driver,5)
     
     #clicking the download buttons
-    driver.find_element(By.XPATH, "/html/body/div[1]/div[2]/div/div/div/div/div[1]/div[1]/div/div/button").click()
-    driver.find_element(By.LINK_TEXT, 'Export').click()
+    button = driver.find_element(By.XPATH, '//*[contains(text(),'"Action "')]')
+    button.click()
+    WebDriverWait(driver,5)
+    ex_button = driver.find_element(By.LINK_TEXT,"Export")
+    ex_button.click()
+    
     
     #give time for function to execute
     time.sleep(2)
@@ -137,7 +141,7 @@ def edit_excel():
     
     
     
-#grab_excel()
+grab_excel()
 #time.sleep(3)
 #move_excel()
 #print("FOUND THE FILE.")
