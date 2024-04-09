@@ -30,17 +30,16 @@ def grab_excel():
     pass_input = driver.find_element(By.NAME, 'Password')
     pass_input.send_keys(pass_word, Keys.ENTER)
     
+    #fullscrrens the window to find elements
     driver.maximize_window()
-    #clicking the download buttons
-    btn_element=WebDriverWait(driver,50).until(EC.element_to_be_clickable((By.XPATH, '//*[contains(text(),"Action")]')))
+
+    #Finding and waiting for the action button to be clickable and then clicking it
+    btn_element=WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH, '//button[contains(text(),"Action")]')))
     btn_element.click()
 
-    link_element=WebDriverWait(driver,50).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(),"Export")]')))
+    #Finding and waiting for the export button to be clickable and then clicking it
+    link_element=WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(),"Export")]')))
     link_element.click()
-    #ex_button = driver.find_element((By.XPATH, '//a[contains(text(),"Export")]'))
-    #WebDriverWait(driver,10)
-    #ex_button.click()
-    
     
     #give time for function to execute
     time.sleep(2)
@@ -144,9 +143,9 @@ def edit_excel():
     
     
 grab_excel()
-time.sleep(3)
-move_excel()
-print("FOUND THE FILE.")
-edit_excel()
-time.sleep(5)
+#time.sleep(3)
+#move_excel()
+#print("FOUND THE FILE.")
+#edit_excel()
+#time.sleep(5)
     
