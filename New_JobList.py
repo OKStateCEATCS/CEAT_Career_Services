@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from openpyxl import load_workbook
 from datetime import date
 import shutil
@@ -29,15 +30,16 @@ def grab_excel():
     pass_input = driver.find_element(By.NAME, 'Password')
     pass_input.send_keys(pass_word, Keys.ENTER)
     
-    #wait 5 seconds for elements to appear
-    WebDriverWait(driver,5)
-    
+    driver.maximize_window()
     #clicking the download buttons
-    button = driver.find_element(By.XPATH, '//*[contains(text(),'"Action "')]')
-    button.click()
-    WebDriverWait(driver,5)
-    ex_button = driver.find_element(By.LINK_TEXT,"Export")
-    ex_button.click()
+    btn_element=WebDriverWait(driver,50).until(EC.element_to_be_clickable((By.XPATH, '//*[contains(text(),"Action")]')))
+    btn_element.click()
+
+    link_element=WebDriverWait(driver,50).until(EC.element_to_be_clickable((By.XPATH, '//a[contains(text(),"Export")]')))
+    link_element.click()
+    #ex_button = driver.find_element((By.XPATH, '//a[contains(text(),"Export")]'))
+    #WebDriverWait(driver,10)
+    #ex_button.click()
     
     
     #give time for function to execute
@@ -142,9 +144,9 @@ def edit_excel():
     
     
 grab_excel()
-#time.sleep(3)
-#move_excel()
-#print("FOUND THE FILE.")
-#edit_excel()
-#time.sleep(5)
+time.sleep(3)
+move_excel()
+print("FOUND THE FILE.")
+edit_excel()
+time.sleep(5)
     
