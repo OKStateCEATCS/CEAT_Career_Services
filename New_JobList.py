@@ -141,11 +141,11 @@ def edit_excel():
     book.save(r'K:\studentservices\crsvc_sh\Job List\ ' +file_name)   
     
     
-print(file_name)    
-#grab_excel()
-#time.sleep(3)
-#move_excel()
-#print("FOUND THE FILE.")
-#edit_excel()
-#time.sleep(5)
+   
+grab_excel()
+time.sleep(3)
+move_excel()
+print("FOUND THE FILE.")
+edit_excel()
+time.sleep(5)
     
