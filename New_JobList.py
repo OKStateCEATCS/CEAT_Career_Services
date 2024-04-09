@@ -13,7 +13,7 @@ import time
 #declaring credentials for HireOSUGrads
 user_name = "ceatcs@okstate.edu"
 pass_word = "hireCEAT2022!"
-file_name = "Job List (" + date.today().strftime("%m/%Y") + ").xlsx"
+file_name = "Job List (" + date.today().strftime("%B, %Y") + ").xlsx"
 
 #this function utilizes selenium to access HireOSUGrads and download the job list
 def grab_excel():
@@ -141,8 +141,8 @@ def edit_excel():
     book.save(r'K:\studentservices\crsvc_sh\Job List\ ' +file_name)   
     
     
-    
-grab_excel()
+print(file_name)    
+#grab_excel()
 #time.sleep(3)
 #move_excel()
 #print("FOUND THE FILE.")
