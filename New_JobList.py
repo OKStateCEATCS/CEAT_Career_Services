@@ -4,7 +4,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from openpyxl import load_workbook
+from openpyxl.workbook import Workbook, web
 from datetime import date
+import os
 import shutil
 import time
 
@@ -14,6 +16,22 @@ import time
 user_name = "ceatcs@okstate.edu"
 pass_word = "hireCEAT2022!"
 file_name = "Job List (" + date.today().strftime("%B, %Y") + ").xlsx"
+
+#This function allows us to automatically organize the excel files by yearly folders
+def format_folder():
+    outer_dir="K:\studentservices\crsvc_sh\Job List\\"
+    inner_dir="Job List {}\\"
+    inner_dir=inner_dir.format(date.today().strftime("%Y"))
+    #this is combining our two path parts into one and setting that as our path
+    path=os.path.join(outer_dir,inner_dir)
+    global year_dir
+    year_dir=path
+    #we are either making our folder or it already exists and we go to grab_excel
+    try:
+        os.mkdir(path)
+        grab_excel()
+    except FileExistsError:
+        grab_excel()
 
 #this function utilizes selenium to access HireOSUGrads and download the job list
 def grab_excel():
@@ -47,7 +65,7 @@ def grab_excel():
 #function that grabs CEAT Job Report from downloads and moves it to job list folder with new name
 def move_excel():
     try:
-        shutil.move(r'C:\Users\ceatcs\Downloads\CEAT Job Report.xlsx',r'K:\studentservices\crsvc_sh\Job List\ '+file_name)
+        shutil.move(r'C:\Users\ceatcs\Downloads\CEAT Job Report.xlsx',r''+year_dir+file_name)
     except:
         print('Error finding file... Trying again.')
         move_excel()
@@ -62,7 +80,7 @@ def edit_excel():
     iem_majors = ['Bach - Industrial Engineering and Management', 'Mast - Industrial Engineering and Management']
     mae_majors = ['Bach - Mechanical Engineering', 'Bach - Mechanical Engineering - Pre-Medical', 'Bach - Mechanical Engineering Technology', 'Mast - Mechanical and Aerospace Engineering', 'Mast - Mechanical and Aerospace Engineering - Unmanned Aerial Systems']
     tech_majors = ['Bach - Construction Engineering Technology', 'Bach - Construction Engineering Technology - Building', 'Bach - Construction Engineering Technology - Heavy', 'Bach - Electrical Engineering Technology', 'Bach - Electrical Engineering Technology - Computer', 'Bach - Mechanical Engineering Technology', 'Mast - Engineering Technology - Fire Safety and Explosion Protection']
-    book = load_workbook(r'K:\studentservices\crsvc_sh\Job List\ ' +file_name) 
+    book = load_workbook(r''+year_dir+file_name) 
     ws=book['CEAT Job Report']
     #creating excel sheets at bottom of page
     sheet1 = book.create_sheet('ARCH')
@@ -138,11 +156,10 @@ def edit_excel():
     sheet_organize(sheet7, mae_majors)
     sheet_organize(sheet8, tech_majors)
     
-    book.save(r'K:\studentservices\crsvc_sh\Job List\ ' +file_name)   
+    book.save(r''+year_dir+file_name)   
     
     
-   
-grab_excel()
+format_folder()
 time.sleep(3)
 move_excel()
 print("FOUND THE FILE.")
