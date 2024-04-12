@@ -31,13 +31,15 @@ def format_folder():
         grab_excel()
     except FileExistsError:
         grab_excel()
+    except FileNotFoundError:
+        print("The given path is invalid, check the outer directory for changes")
 
 #this function utilizes selenium to access HireOSUGrads and download the job list
 def grab_excel():
     driver = webdriver.Chrome()
     
     #searching for the url
-    driver.get("https://okstate.admin.12twenty.com/Login?returnUrl=/CustomReports#/customReports/15612")
+    driver.get("https://okstate.admin.12twenty.com/CustomReports#/customReports/119202")
     
     #finding the username input via html and inputting the credentials
     user_input = driver.find_element(By.NAME, 'Username')
@@ -64,30 +66,30 @@ def grab_excel():
 #function that grabs CEAT Job Report from downloads and moves it to job list folder with new name
 def move_excel():
     try:
-        shutil.move(r'C:\Users\ceatcs\Downloads\CEAT Job Report.xlsx',r''+year_dir+file_name)
+        shutil.move(r'C:\Users\ceatcs\Downloads\New CEAT Job Report.xlsx',r''+year_dir+file_name)
     except:
         print('Error finding file... Trying again.')
         move_excel()
     
 #function that organizes Job List file
 def edit_excel():
-    arch_majors = ['Bach - Architecture', 'Bach - Architectural Engineering - Construction Project Management', 'Bach - Architectural Engineering - Mechanical', 'Bach - Architectural Engineering - Structures', 'Bach - Architectural Engineering']
-    bae_majors = ['Bach - Biosystems Engineering', 'Bach - Biosystems Engineering - Biomechanical', 'Bach - Biosystems Engineering - Bioprocessing and Food Processing', 'Bach - Biosystems Engineering - Environmental and Natural Resources', 'Bach - Biosystems Engineering - Machine Systems and Agricultural Engineering', 'Bach - Biosystems Engineering - Pre-Medical', 'Mast - Biosystems Engineering', 'Mast - Environmental Engineering']
-    chen_majors = ['Bach - Chemical Engineering', 'Bach - Chemical Engineering - Biomedical/Biochemical', 'Bach - Chemical Engineering - Pre-Medical', 'Mast - Chemical Engineering']
-    cive_majors = ['Bach - Civil Engineering', 'Bach - Civil Engineering - Environmental', 'Mast - Civil Engineering']
-    ecen_majors = ['Bach - Computer Engineering', 'Bach - Electrical Engineering', 'Mast - Electrical Engineering', 'Mast - Electrical Engineering - Control Systems', 'Mast - Electrical Engineering - Optics and Photonics']
-    iem_majors = ['Bach - Industrial Engineering and Management', 'Mast - Industrial Engineering and Management']
-    mae_majors = ['Bach - Mechanical Engineering', 'Bach - Mechanical Engineering - Pre-Medical', 'Bach - Mechanical Engineering Technology', 'Mast - Mechanical and Aerospace Engineering', 'Mast - Mechanical and Aerospace Engineering - Unmanned Aerial Systems']
-    tech_majors = ['Bach - Construction Engineering Technology', 'Bach - Construction Engineering Technology - Building', 'Bach - Construction Engineering Technology - Heavy', 'Bach - Electrical Engineering Technology', 'Bach - Electrical Engineering Technology - Computer', 'Bach - Mechanical Engineering Technology', 'Mast - Engineering Technology - Fire Safety and Explosion Protection']
+    arch_majors = ['Bach - Architecture', 'Bach - Architectural Engineering - Construction Project Management', 'Bach - Architectural Engineering - Structures', 'Bach - Architectural Engineering']
+    bae_majors = ['Bach - Biosystems Engineering', 'Bach - Biosystems Engineering - Bioprocessing and Food Processing', 'Bach - Biosystems Engineering - Environmental and Natural Resources', 'Bach - Biosystems Engineering - Machine Systems and Agricultural Engineering', 'Bach - Biosystems Engineering - Pre-Medical', 'Mast - Biosystems Engineering', 'Mast - Environmental Engineering', 'Doc - Biosystems Engineering']   
+    chem_majors = ['Bach - Chemical Engineering', 'Bach - Chemical Engineering - Biomedical/Biochemical', 'Bach - Chemical Engineering - Pre-Medical', 'Mast - Chemical Engineering', 'Mast - Materials Science and Engineering', 'Doc - Chemical Engineering','Doc - Materials Science and Engineering' ]
+    cive_majors = ['Bach - Civil Engineering', 'Bach - Civil Engineering - Environmental', 'Mast - Civil Engineering', 'Doc - Civil Engineering']
+    ecen_majors = ['Bach - Computer Engineering', 'Bach - Computer Engineering - Software Engineering', 'Bach - Electrical Engineering', 'Mast - Electrical Engineering', 'Mast - Electrical Engineering - Control Systems', 'Mast - Electrical Engineering - Optics and Photonics', 'Doc - Electrical Engineering']
+    iem_majors = ['Bach - Industrial Engineering and Management', 'Mast - Industrial Engineering and Management', 'Mast - Engineering and Technology Management', 'Mast - Industrial Engineering and Management - Operations Research and Analytics', 'Mast - Industrial Engineering and Management - Supply Chain and Logistics', 'Doc - Industrial Engineering and Management']
+    mae_majors = ['Bach - Aerospace Engineering','Bach - Mechanical Engineering', 'Bach - Mechanical Engineering - Pre-Medical', 'Bach - Mechanical Engineering - Fire Protection Systems', 'Bach - Mechanical Engineering - Petroleum', 'Mast - Mechanical and Aerospace Engineering', 'Mast - Mechanical and Aerospace Engineering - Unmanned Aerial Systems', 'Mast - Materials Science and Engineering', 'Mast - Petroleum Engineering', 'Doc - Materials Science and Engineering', 'Doc - Mechanical and Aerospace Engineering', 'Doc - Mechanical and Aerospace Engineering - Unmanned Aerial Systems', 'Doc - Petroleum Engineering']
+    tech_majors = ['Bach - Construction Engineering Technology', 'Bach - Construction Engineering Technology - Building', 'Bach - Construction Engineering Technology - Heavy', 'Bach - Electrical Engineering Technology', 'Bach - Electrical Engineering Technology - Computer', 'Bach - Mechanical Engineering Technology', 'Bach - Mechatronics and Robotics', 'Mast - Engineering Technology - Fire Safety and Explosion Protection', 'Mast - Engineering Technology', 'Mast - Engineering Technology - Mechatronics and Robotics']
     book = load_workbook(r''+year_dir+file_name) 
-    ws=book['CEAT Job Report']
+    ws=book['New CEAT Job Report']
     #creating excel sheets at bottom of page
     sheet1 = book.create_sheet('ARCH')
     sheet1.title = 'ARCH'
     sheet2 = book.create_sheet('BAE')
     sheet2.title = 'BAE'
-    sheet3 = book.create_sheet('CHEN')
-    sheet3.title = 'CHEN'
+    sheet3 = book.create_sheet('CHEM')
+    sheet3.title = 'CHEM'
     sheet4 = book.create_sheet('CIVE')
     sheet4.title = 'CIVE'
     sheet5 = book.create_sheet('ECEN')
@@ -148,7 +150,7 @@ def edit_excel():
         
     sheet_organize(sheet1, arch_majors)
     sheet_organize(sheet2, bae_majors)
-    sheet_organize(sheet3, chen_majors)
+    sheet_organize(sheet3, chem_majors)
     sheet_organize(sheet4, cive_majors)
     sheet_organize(sheet5, ecen_majors)
     sheet_organize(sheet6, iem_majors)
