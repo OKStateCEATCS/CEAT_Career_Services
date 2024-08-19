@@ -18,12 +18,12 @@ import time
 
 #declaring query file name
 file_name = "CEAT Student Data ({}).xlsx"
-if 1<=int(date.today().strftime("%m"))<=5:
+if 1<=int(date.today().strftime("%m"))<=12:
     file_name = file_name.format("Spring, "+date.today().strftime("%Y"))
-elif 6<=int(date.today().strftime("%m"))<=7:
-    file_name = file_name.format("Summer, "+date.today().strftime("%Y"))
-else:
-    file_name = file_name.format("Fall, "+date.today().strftime("%Y"))
+#elif 6<=int(date.today().strftime("%m"))<=7:
+#    file_name = file_name.format("Summer, "+date.today().strftime("%Y"))
+#else:
+#    file_name = file_name.format("Fall, "+date.today().strftime("%Y"))
 
 
 
@@ -47,7 +47,7 @@ def format_folder():
     except FileExistsError:
         search_ISO()
     except FileNotFoundError:
-        print("The given path is invalid, check the outer directory for changes")
+        print("The generated path is invalid; check the directories for changes.")
    
    
    
