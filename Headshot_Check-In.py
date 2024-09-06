@@ -78,7 +78,17 @@ def search_ISO():
 
     #If we find the iso, we confirm their info, otherwise we search using email
     trigger=0
-    for cell in ws['E']:
+
+    for column in ws.iter_cols():
+        column_name=column[0].value
+        if column_name == "Student Email":
+            global email_column
+            email_column=column
+        elif column_name == "Student Swipe Number":
+            global iso_column
+            iso_column=column
+
+    for cell in iso_column:
         current_row+=1
         temp_val = cell.value
         if (temp_val == iso):
@@ -93,7 +103,7 @@ def search_ISO():
             l_name=ln_cell.value  
         #Retrieving Student's Email
             global email
-            email_cell=ws.cell(row=current_row, column=6)
+            email_cell=ws.cell(row=current_row, column=iso_column)
             email=email_cell.value
             info_confirmation()               
     if (trigger==0):
