@@ -36,7 +36,7 @@ def search_info():
         global iso_var    
         iso_var=tk.StringVar()
                 
-        id_swipe=tk.Entry(swipe_frame, font=("Raleway", 16), textvariable=iso_var)
+        id_swipe=tk.Entry(swipe_frame,textvariable=iso_var)
         id_swipe.focus_set()
         id_swipe.grid(row=1, column=0)  
         id_swipe.bind('<Return>', search_iso) 
@@ -109,11 +109,11 @@ def search_info():
         el=tk.Label(email_frame, font=("Raleway", 16), text="Email:")
         el.grid(row=1, column=0, sticky=(N,E))
         
-        e=tk.Entry(email_frame, font=("Raleway", 16), textvariable=email_var)
+        e=tk.Entry(email_frame,textvariable=email_var)
         e.grid(row=1, column=1, sticky=(N,E,W))
             
-        sub_btn=tk.Button(email_frame, font=("Raleway", 16), text="Submit", command=assign)
-        sub_btn.grid(row=2, column=0, columnspan=2, sticky=(N,E,W))    
+        sub_btn=tk.Button(email_frame, font=("Raleway"), text="Submit", command=assign)
+        sub_btn.grid(row=2, column=0, columnspan=2,sticky=(N,E,W))    
     
         
     def info_confirmation():
@@ -131,11 +131,11 @@ def search_info():
         l = tk.Label(conf_frame, font=("Raleway", 20, "bold"), text="Is this your email?\n"+email)
         l.grid(row=0, column=0, columnspan=2)
         
-        yes_btn=tk.Button(conf_frame, font=("Raleway", 16), text="Yes", command=send_email)
-        yes_btn.grid(row=1, column=0, ipadx=10, ipady=10)
+        yes_btn=tk.Button(conf_frame, font=("Raleway"), text="Yes", command=send_email)
+        yes_btn.grid(row=1, column=0, padx=10, pady=10)
         
-        no_btn=tk.Button(conf_frame, font=("Raleway", 16), text="No", command=search_email)
-        no_btn.grid(row=1, column=1, ipadx=10, ipady=10)    
+        no_btn=tk.Button(conf_frame, font=("Raleway"), text="No", command=search_email)
+        no_btn.grid(row=1, column=1, padx=10, pady=10)    
      
        
     #declaring window info 
@@ -157,7 +157,7 @@ def search_info():
 
 #Finding and Formatting the Query Folder
 def format_folder():
-    outer_dir="K:\\studentservices\\crsvc_sh\\Headshot Check In\\"
+    outer_dir="J:\\studentservices\\crsvc_sh\\Headshot Check In\\"
     inner_dir="{} Queries\\"
     inner_dir=inner_dir.format(date.today().strftime("%Y"))
     #this is combining our two path parts into one and setting that as our path

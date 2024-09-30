@@ -112,8 +112,8 @@ def search_info():
         e=tk.Entry(email_frame, font=("Raleway", 16), textvariable=email_var)
         e.grid(row=1, column=1, sticky=(N,E,W))
             
-        sub_btn=tk.Button(email_frame, font=("Raleway", 16), text="Submit", command=assign)
-        sub_btn.grid(row=2, column=0, columnspan=2, sticky=(N,E,W))    
+        sub_btn=tk.Button(email_frame, font=("Raleway"), text="Submit", command=assign)
+        sub_btn.grid(row=2, column=0, columnspan=2,sticky=(N,E,W))    
     
         
     def info_confirmation():
@@ -131,11 +131,11 @@ def search_info():
         l = tk.Label(conf_frame, font=("Raleway", 20, "bold"), text="Is this your email?\n"+email)
         l.grid(row=0, column=0, columnspan=2)
         
-        yes_btn=tk.Button(conf_frame, font=("Raleway", 16), text="Yes", command=send_email)
-        yes_btn.grid(row=1, column=0, ipadx=10, ipady=10)
+        yes_btn=tk.Button(conf_frame, font=("Raleway"), text="Yes", command=store_email)
+        yes_btn.grid(row=1, column=0, padx=10, pady=10)
         
-        no_btn=tk.Button(conf_frame, font=("Raleway", 16), text="No", command=search_email)
-        no_btn.grid(row=1, column=1, ipadx=10, ipady=10)    
+        no_btn=tk.Button(conf_frame, font=("Raleway"), text="No", command=search_email)
+        no_btn.grid(row=1, column=1, padx=10, pady=10)    
      
        
     #declaring window info 
@@ -157,7 +157,8 @@ def search_info():
 
 #Finding and Formatting the Query Folder
 def format_folder():
-    outer_dir="K:\\studentservices\\crsvc_sh\\Headshot Check In\\"
+    global outer_dir
+    outer_dir="C:\\Users\\ceatcs\\Documents\\Local Headshot\\"
     inner_dir="{} Queries\\"
     inner_dir=inner_dir.format(date.today().strftime("%Y"))
     #this is combining our two path parts into one and setting that as our path
@@ -187,11 +188,26 @@ def restart():
     search_info()
   
           
-def send_email():
+def store_email():
     clear_frames()
-    #for Ethan
     
-    #Put vv this vv at the end of your code
+    file_name="{} Career Fair Headshot Emails.xlsx"
+    if 1<=int(date.today().strftime("%m"))<=5:
+        file_name = file_name.format("S"+date.today().strftime("%y"))
+    elif 6<=int(date.today().strftime("%m"))<=7:
+        file_name = file_name.format("SU"+date.today().strftime("%y"))
+    else:
+        file_name = file_name.format("F"+date.today().strftime("%y"))
+    
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=UserWarning, module=re.escape('openpyxl.styles.stylesheet'))
+        book = load_workbook(r''+outer_dir+file_name) 
+    ws=book['Student Emails']
+        
+    ws.cell(row=ws.max_row +1, column=1, value=email)
+    
+    book.save(r''+outer_dir+file_name)
+        
     restart()
 
 
