@@ -157,7 +157,7 @@ def search_info():
 
 #Finding and Formatting the Query Folder
 def format_folder():
-    outer_dir="K:\\studentservices\\crsvc_sh\\Headshot Check In\\"
+    outer_dir="K:\\studentservices\\crsvc_sh\\Queries\\"
     inner_dir="{} Queries\\"
     inner_dir=inner_dir.format(date.today().strftime("%Y"))
     #this is combining our two path parts into one and setting that as our path
