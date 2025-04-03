@@ -139,7 +139,7 @@ def edit_excel():
     def sheet_organize(sheet, diff_majors):
         current_row = 0 
         next_row = 1
-        for cell in ws['D']:
+        for cell in ws['C']:
             current_row = current_row + 1
             temp_val = cell.value
             if temp_val is not None:
@@ -175,4 +175,4 @@ time.sleep(3)
 move_excel()
 print("FOUND THE FILE.")
 edit_excel()
-time.sleep(1)
+time.sleep(5)
