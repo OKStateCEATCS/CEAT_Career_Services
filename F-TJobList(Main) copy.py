@@ -16,7 +16,7 @@ import time
 #declaring credentials for HireOSUGrads
 user_name = "ceatcs@okstate.edu"
 pass_word = "hireCEAT2022!"
-file_name = "Internship List (" + date.today().strftime("%B, %Y") + ").xlsx"
+file_name = "Full-Time Job List (" + date.today().strftime("%B, %Y") + ").xlsx"
 
 #This function allows us to automatically organize the excel files by yearly folders
 def format_folder():
@@ -41,7 +41,7 @@ def grab_excel():
     driver = webdriver.Chrome()
     
     #searching for the url
-    driver.get("https://okstate.admin.12twenty.com/CustomReports#/customReports/163708")
+    driver.get("https://okstate.admin.12twenty.com/CustomReports#/customReports/163898")
     
     time.sleep(1)
     
@@ -72,7 +72,7 @@ def grab_excel():
 #function that grabs CEAT Job Report from downloads and moves it to job list folder with new name
 def move_excel():
     try:
-        shutil.move(r'C:\\Users\\ceatcs\\Downloads\\CEAT Internship Report.xlsx',r''+year_dir+file_name)
+        shutil.move(r'C:\\Users\\ceatcs\\Downloads\\CEAT Full-Time Job Report.xlsx',r''+year_dir+file_name)
     except:
         print('Error finding file... Trying again.')
         move_excel()
@@ -91,7 +91,7 @@ def edit_excel():
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=UserWarning, module=re.escape('openpyxl.styles.stylesheet'))
         book = load_workbook(r''+year_dir+file_name) 
-    ws=book['CEAT Internship Report']
+    ws=book['CEAT Full-Time Job Report']
     #creating excel sheets at bottom of page
     
     sheet1 = book.create_sheet('ARCH')
@@ -175,4 +175,4 @@ time.sleep(3)
 move_excel()
 print("FOUND THE FILE.")
 edit_excel()
-time.sleep(5)
+time.sleep(1)
