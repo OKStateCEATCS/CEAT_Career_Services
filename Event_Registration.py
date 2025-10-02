@@ -4,22 +4,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC
-from datetime import date
 from openpyxl import load_workbook
 import re
 import warnings
-import os
 import time
 
-#Prompting the user for their username, password, and event link to log attendeance in slate
+#Prompting the user for their username, password, event file, and event link to log attendeance in slate
 print("Greetings, you will need to input your SLATE Admin credentials as well as a link to the event"+"A passcode should be texted to you, please input it into the website.")
 user_name = input("Please input your email: ")
 pass_word = input("Please input your password: ")
 event_link = input("Please input your event link: ")
-#declaring the file name we want to find
-file_name = "Student Data.xlsx"
+file_name = input("Please input the event check in file name (include .xlsx): ")
 
 #this loads the excel file, ignoring a cosmetic warning
 with warnings.catch_warnings():
