@@ -1,11 +1,8 @@
-from openpyxl import load_workbook
-from datetime import datetime, date, timedelta
-
+from datetime import date, timedelta
 import openpyxl
-import datetime
 
 #This loads the sheet for viewing/editing
-ResumeScan = openpyxl.load_workbook(r'K:\studentservices\crsvc_sh\Resume Paper Scan\Resume Paper Scan (DONT OPEN).xlsx')
+ResumeScan = openpyxl.load_workbook('J:\\studentservices\\crsvc_sh\\Resume Paper Scan\\Resume Paper Scan (DONT OPEN).xlsx')
 
 #This allows us to read the sheet
 sheet1 = ResumeScan.active
@@ -14,13 +11,22 @@ sheet1 = ResumeScan.active
 #This searches for the inputted ID number in Column A
 def search():
     #This gets us the students card ID to cross reference
-    ID = input("Swipe ID Please: ")
+    ID = input("Swipe ID Please or type 'exit' to close: ")
+    global ID_itr
+    ID_itr = ''
+    if ID.lower() == "exit":
+        exit()
+    else:
+        for char in ID:
+            if char.isdigit():
+                ID_itr +=char
     #This is the parameter to give paper
+    global GivePaper
     GivePaper=True
     for col in sheet1.iter_cols(max_col=1):
         for cell in col:
             #This compares the value in a given cell to the ID
-            if (cell.value == ID):
+            if (cell.value == ID_itr):
                 ID_row = cell.row
                 #if they match we will search through column B for a date within the last week
                 for col in sheet1.iter_cols(min_col=2, min_row=ID_row, max_row=ID_row, max_col=2):
@@ -35,25 +41,17 @@ def search():
                             if (cell.value == CheckDate):
                                 GivePaper = False
                             count = count-1
-                    
+        log_id()
+
+def log_id():
     if (GivePaper==True):
-        idInfo = sheet1.cell(row=sheet1.max_row +1, column=1, value=ID)
-        DateInfo = sheet1.cell(row=sheet1.max_row, column=2, value=date.today().strftime("%m/%d/%Y"))
+        sheet1.cell(row=sheet1.max_row +1, column=1, value=ID_itr)
+        sheet1.cell(row=sheet1.max_row, column=2, value=date.today().strftime("%m/%d/%Y"))
         print("Information added, please collect your paper.")
     else:
         print("Paper has been collected recently, come back in a few days and try again!")
                 
-    ResumeScan.save(r'K:\studentservices\crsvc_sh\Resume Paper Scan\Resume Paper Scan (DONT OPEN).xlsx')
-    Recur()
-
-def Recur():
-    rcr=input("Press 0 to close and 1 to continue: ")
-    if (rcr == "1"):
-        search()
-    else:
-        exit()
+    ResumeScan.save('J:\\studentservices\\crsvc_sh\\Resume Paper Scan\\Resume Paper Scan (DONT OPEN).xlsx')
+    search()
 
 search()
-
-
-        

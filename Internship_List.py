@@ -20,7 +20,7 @@ file_name = "Internship List (" + date.today().strftime("%B, %Y") + ").xlsx"
 
 #This function allows us to automatically organize the excel files by yearly folders
 def format_folder():
-    outer_dir="K:\\studentservices\\crsvc_sh\\Job List\\"
+    outer_dir="J:\\studentservices\\crsvc_sh\\Job List\\"
     inner_dir="Job List {}\\"
     inner_dir=inner_dir.format(date.today().strftime("%Y"))
     #this is combining our two path parts into one and setting that as our path
